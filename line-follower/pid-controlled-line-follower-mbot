@@ -35,6 +35,13 @@ void setup()
     integral = 0;
     derivative = 0;
     lastError = 0;
+    
+    pinMode(A7,INPUT);
+    
+    while(!((0^(analogRead(A7)>10?0:1))))
+    {
+        _loop();
+    }
 }
 
 void loop() 
@@ -42,39 +49,41 @@ void loop()
     currentLFState = lineFollower.readSensors();
 		
     if ((currentLFState)==(0))
-		{
+    {
         currentError = 0;
     } 
-		else if ((currentLFState)==(1))
-		{
+    else if ((currentLFState)==(1))
+    {
         currentError = -1;
     } 
-		else if ((currentLFState)==(2))
-		{
+    else if ((currentLFState)==(2))
+    {
         currentError = 1;
     } 
-		else if ((currentLFState)==(3)) 
-		{
+    else if ((currentLFState)==(3)) 
+    {
         if ((lastError)==(1)) 
-				{
+	{
             currentError = 2;
         } 
-				else if ((lastError)==(-1)) 
-				{
+	else if ((lastError)==(-1)) 
+	{
             currentError = -2;
         } 
-				else if ((lastError)==(0)) 
-				{
+	else if ((lastError)==(0)) 
+	{
             motor1.run((9)==M1?-(0):(0));
             motor2.run((10)==M1?-(0):(0));
-						_delay(0.5)
+	    _delay(0.5)
 						
             randomInt = random(1,2);
 						
             while ((currentLFState)==(3))
             {
                 _loop();
-                if ((randomInt)==(1))
+		currentLFState = lineFollower.readSensors();
+                
+		if ((randomInt)==(1))
                 {
                     motor1.run((9)==M1?-(255):(255));
                     motor2.run((10)==M1?-(-255):(-255));
