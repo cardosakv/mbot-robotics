@@ -1,2 +1,2 @@
 # mbot-robotics
-A repo on some of our projects on Mbot using arduino and mBlock software.
+A repo on our codes on Mbot using arduino and mBlock software.
